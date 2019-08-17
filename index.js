@@ -7,6 +7,10 @@ const p = require('path')
 
 const app = express()
 
+app.get('/',(req,res) => {
+  res.send('hello, this is a test')
+})
+
 app.options('/upload', cors())
 
 
