@@ -7,6 +7,16 @@ const p = require('path')
 
 const app = express()
 
+// app.all('*', function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+//   res.header("X-Powered-By",' 3.2.1')
+//   res.header("Content-Type", "application/json;charset=utf-8");
+//   next();
+// });
+
+
 app.get('/',(req,res) => {
   res.send('hello, this is a test')
 })
@@ -14,7 +24,7 @@ app.get('/',(req,res) => {
 app.options('/upload', cors())
 
 
-app.put('/upload', cors(), upload.single('file'), function (req, res, next) {
+app.post('/upload', cors(), upload.single('file'), function (req, res, next) {
   res.json({key: req.file.filename})
 })
 
