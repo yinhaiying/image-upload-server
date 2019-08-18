@@ -24,12 +24,20 @@ app.get('/',(req,res) => {
 app.options('/upload', cors())
 
 
-app.post('/upload', cors(), upload.single('file'), function (req, res, next) {
-  res.json({key: req.file.filename})
+// 单文件上传
+// app.post('/upload', cors(), upload.single('file'), function (req, res, next) {
+//   res.json({key: req.file.filename})
+// })
+
+// 多文件上传
+app.post('/upload', cors(), upload.array('files', 12), function (req, res, next) {
+  console.log(req.files)
+  // res.json({key: req.file.filename})
+  res.send(JSON.stringify(req.files.map((item) => item.filename)));
 })
 
 
-app.get('/upload/:key', cors(), function(req, res, next){
+app.get('/preview/:key', cors(), function(req, res, next){
   res.sendFile(`uploads/${req.params.key}`, {
     root: __dirname,
     headers:{
